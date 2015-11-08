@@ -3,6 +3,24 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
->
+              android:weightSum="1">
+    <TextView
+            android:layout_width="200dp"
+            android:layout_height="43dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="main menu"
+            android:id="@+id/txt_mainMenu" android:textStyle="bold"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Tones recognition"
+            android:id="@+id/btn_tones"/>
+    <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Equalization recognition"
+            android:id="@+id/btn_eq"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Your results &amp; statistics"
+            android:id="@+id/btn_results" android:layout_gravity="center_horizontal"/>
 </LinearLayout>
 
