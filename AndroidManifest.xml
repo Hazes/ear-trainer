@@ -12,7 +12,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.eartrainer.activity.ResultsScreen"
+        <activity android:name=".activity.ViewResults"
+                  android:label="@string/app_name"
+                  android:parentActivityName="com.eartrainer.activity.MainScreen">
+        </activity>
+        <activity android:name=".activity.TonesRecognition"
+                  android:label="@string/app_name"
+                  android:parentActivityName="com.eartrainer.activity.MainScreen">
+        </activity>
+        <activity android:name=".activity.EqualizationRecognition"
                   android:label="@string/app_name"
                   android:parentActivityName="com.eartrainer.activity.MainScreen">
         </activity>
