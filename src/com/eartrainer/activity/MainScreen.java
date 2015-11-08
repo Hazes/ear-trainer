@@ -6,51 +6,41 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.eartrainer.R;
-import com.eartrainer.audio.AudioPlayer;
 
 
 public class MainScreen
         extends Activity
         implements View.OnClickListener {
 
-    private Button btnTones;
-    private Button btnEq;
-    private Button btnResults;
-    private AudioPlayer audioPlayer;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        InitializeApp();
-        audioPlayer = new AudioPlayer(null, 44100);
+        InitializeControls();
     }
 
-    private void InitializeApp() {
-        btnTones = (Button) findViewById(R.id.btn_tones);
-        btnEq = (Button) findViewById(R.id.btn_eq);
-        btnResults = (Button) findViewById(R.id.btn_results);
+    private void InitializeControls() {
+        Button btnTones = (Button) findViewById(R.id.btn_tones);
+        Button btnEq = (Button) findViewById(R.id.btn_eq);
+        Button btnResults = (Button) findViewById(R.id.btn_results);
         btnResults.setOnClickListener(this);
         btnTones.setOnClickListener(this);
         btnEq.setOnClickListener(this);
     }
 
     private void onBtnTonesClicked() {
-
-    }
-
-    private void onBtnEqualizerClicked() {
-
-    }
-
-    private void onBtnResultsClicked() {
-        Intent myIntent = new Intent(MainScreen.this, ResultsScreen.class);
+        Intent myIntent = new Intent(MainScreen.this, TonesRecognition.class);
         MainScreen.this.startActivity(myIntent);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    private void onBtnEqualizationClicked() {
+        Intent myIntent = new Intent(MainScreen.this, EqualizationRecognition.class);
+        MainScreen.this.startActivity(myIntent);
+    }
+
+    private void onBtnResultsClicked() {
+        Intent myIntent = new Intent(MainScreen.this, ViewResults.class);
+        MainScreen.this.startActivity(myIntent);
     }
 
     @Override
@@ -59,13 +49,12 @@ public class MainScreen
             case R.id.btn_tones:
                 onBtnTonesClicked();
                 break;
+            case R.id.btn_eq:
+                onBtnEqualizationClicked();
+                break;
             case R.id.btn_results:
                 onBtnResultsClicked();
-                break;
-            case R.id.btn_eq:
-                onBtnEqualizerClicked();
                 break;
         }
     }
 }
-        
