@@ -12,5 +12,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.eartrainer.activity.ResultsScreen"
+                  android:label="@string/app_name"
+                  android:parentActivityName="com.eartrainer.activity.MainScreen">
+        </activity>
     </application>
 </manifest>
