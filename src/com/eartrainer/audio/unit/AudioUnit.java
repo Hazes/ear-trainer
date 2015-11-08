@@ -1,4 +1,4 @@
-package com.eartrainer.audio;
+package com.eartrainer.audio.unit;
 
 
 public interface AudioUnit {

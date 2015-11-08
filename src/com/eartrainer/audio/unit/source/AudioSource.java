@@ -1,6 +1,6 @@
-package com.eartrainer.audio.sources;
+package com.eartrainer.audio.unit.source;
 
-import com.eartrainer.audio.AudioUnit;
+import com.eartrainer.audio.unit.AudioUnit;
 
 
 public interface AudioSource extends AudioUnit {

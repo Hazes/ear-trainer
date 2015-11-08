@@ -3,7 +3,7 @@ package com.eartrainer.audio;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-import com.eartrainer.audio.sources.AudioSource;
+import com.eartrainer.audio.unit.source.AudioSource;
 
 public class AudioPlayer
         implements Runnable {

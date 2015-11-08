@@ -1,4 +1,4 @@
-package com.eartrainer.audio.filters;
+package com.eartrainer.audio.unit.filter;
 
 import com.eartrainer.dsp.BiQuadFilter;
 

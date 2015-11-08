@@ -1,4 +1,4 @@
-package com.eartrainer.audio.sources;
+package com.eartrainer.audio.unit.source;
 
 import android.content.Context;
 
