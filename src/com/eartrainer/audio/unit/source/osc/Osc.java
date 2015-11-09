@@ -8,6 +8,10 @@ public abstract class Osc implements AudioSource {
     private float frequency;
     private float gain;
 
+    public Osc (float frequencyHz) {
+        setFrequency(frequencyHz);
+    }
+
     public float getFrequency() {
         return frequency;
     }

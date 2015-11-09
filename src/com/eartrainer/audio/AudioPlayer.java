@@ -53,4 +53,8 @@ public class AudioPlayer
             audioTrack.stop();
         }
     }
+
+    public void stop() {
+        stop = true;
+    }
 }
