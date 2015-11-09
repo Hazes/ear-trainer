@@ -6,6 +6,10 @@ public class SineOsc extends Osc {
     private float phase;
     private int sampleRate;
 
+    public SineOsc(float frequencyHz) {
+        super(frequencyHz);
+    }
+
     @Override
     public float[] generate(int numSamples) {
         float[] out = new float[numSamples];
