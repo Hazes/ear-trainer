@@ -6,6 +6,7 @@ import java.util.Random;
 public class ArrayRandomizer<T> {
 
     private T[] arrayToRandomize;
+    private Random random = new Random();
 
     public ArrayRandomizer(T[] arrayToRandomize) {
         setArrayToRandomize(arrayToRandomize);
@@ -20,6 +21,6 @@ public class ArrayRandomizer<T> {
     }
 
     public T randomize() {
-        return arrayToRandomize[new Random().nextInt(arrayToRandomize.length)];
+        return arrayToRandomize[random.nextInt(arrayToRandomize.length)];
     }
 }

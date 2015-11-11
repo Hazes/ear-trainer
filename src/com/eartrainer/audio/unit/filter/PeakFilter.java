@@ -25,7 +25,7 @@ public class PeakFilter
 
     @Override
     public void release() {
-        // nothing needed
+        // not implemented
     }
 
     public float getCenterFrequency() {

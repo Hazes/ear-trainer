@@ -116,21 +116,12 @@
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4000"
-                    android:id="@+id/button7" android:layout_row="3" android:layout_column="0"/>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8000"
-                    android:id="@+id/button8" android:layout_row="3" android:layout_column="1"/>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="16000"
-                    android:id="@+id/button9" android:layout_row="3" android:layout_column="2"/>
+                    android:id="@+id/button7" android:layout_row="3" android:layout_column="1"/>
         </TableRow>
     </TableLayout>
     <Button

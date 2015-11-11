@@ -3,10 +3,10 @@ package com.eartrainer.audio;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import java.util.Arrays;
 import com.eartrainer.audio.unit.source.AudioSource;
 
-public class AudioPlayer
-        implements Runnable {
+public class AudioPlayer implements Runnable {
 
     private boolean stop;
     private AudioTrack audioTrack;
@@ -44,11 +44,13 @@ public class AudioPlayer
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 
         if (audioSource != null) {
+            float[] buffer = new float[numSamples];
             audioSource.prepare(sampleRate, numSamples);
             audioTrack.play();
             while (!stop) {
-                float[] samples = audioSource.generate(numSamples);
-                audioTrack.write(samples, 0, samples.length, AudioTrack.WRITE_BLOCKING);
+                Arrays.fill(buffer, 0);
+                audioSource.generate(buffer);
+                audioTrack.write(buffer, 0, buffer.length, AudioTrack.WRITE_BLOCKING);
             }
             audioTrack.stop();
         }

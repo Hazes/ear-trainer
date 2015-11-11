@@ -12,8 +12,8 @@ import com.eartrainer.R;
 import com.eartrainer.TonesRecognitionConsts;
 import com.eartrainer.TonesRecognitionSettings;
 import com.eartrainer.audio.AudioPlayer;
-import com.eartrainer.audio.unit.source.osc.Osc;
-import com.eartrainer.audio.unit.source.osc.SineOsc;
+import com.eartrainer.audio.unit.source.osc.*;
+import junit.framework.Assert;
 
 
 enum ToneType {
@@ -62,8 +62,16 @@ public class TonesRecognition
         int frequency = frequencyRandomizer.randomize();
         ToneType type = toneTypeRandomizer.randomize();
         switch (type) {
-            default: // only sine osc supported for now
+            case SINE:
                 return new SineOsc(frequency);
+            case TRIANGLE:
+                return new TriangleOsc(frequency);
+            case SQUARE:
+                return new SquareOsc(frequency);
+            case SAW:
+                return new SawOsc(frequency);
+            default:
+                throw new AssertionError("Unknown osc type");
         }
     }
 

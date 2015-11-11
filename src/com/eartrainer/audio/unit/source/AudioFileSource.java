@@ -39,20 +39,18 @@ public class AudioFileSource implements AudioSource {
     }
 
     @Override
-    public float[] generate(int numSamples) {
-        float[] samples = new float[numSamples];
+    public void generate(float[] audioBuffer) {
         try {
             int bytesRead;
             byteBuffer.rewind();
             if ((bytesRead = bufferedInStream.read(buffer)) > -1) {
                 int samplesRead = bytesRead * 4;
                 for (int i = 0; i < samplesRead; ++i) {
-                    samples[i] = byteBuffer.getFloat();
+                    audioBuffer[i] = byteBuffer.getFloat();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return samples;
     }
 }
