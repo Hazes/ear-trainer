@@ -44,7 +44,7 @@ public class AudioFileSource implements AudioSource {
             int bytesRead;
             byteBuffer.rewind();
             if ((bytesRead = bufferedInStream.read(buffer)) > -1) {
-                int samplesRead = bytesRead * 4;
+                int samplesRead = bytesRead / 4;
                 for (int i = 0; i < samplesRead; ++i) {
                     audioBuffer[i] = byteBuffer.getFloat();
                 }
