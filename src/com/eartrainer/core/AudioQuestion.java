@@ -3,21 +3,21 @@ package com.eartrainer.core;
 
 import com.eartrainer.audio.unit.source.AudioSource;
 
-public class Question {
+public class AudioQuestion {
 
     private AudioSource audioSource;
-    private Answer answer;
+    private QAType question;
 
-    public Question(AudioSource audioSource, Answer answer) {
+    public AudioQuestion(AudioSource audioSource, QAType question) {
         this.audioSource = audioSource;
-        this.answer = answer;
+        this.question = question;
     }
 
     public AudioSource getAudioSource() {
         return audioSource;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public QAType getQuestion() {
+        return question;
     }
 }

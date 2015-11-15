@@ -1,10 +1,10 @@
 package com.eartrainer.core;
 
 
-public abstract class Answer {
+public abstract class QAType {
     protected Integer frequency;
 
-    public Answer(Integer frequency) {
+    public QAType(Integer frequency) {
         this.frequency = frequency;
     }
 
@@ -12,8 +12,10 @@ public abstract class Answer {
         return frequency.toString() + "Hz";
     }
 
-    public boolean equals(Answer other) {
-        return asString().equals(other.asString());
+    public boolean equals(QAType other) {
+        if (other != null)
+            return asString().equals(other.asString());
+        return false;
     }
 
     public Integer getFrequency() {

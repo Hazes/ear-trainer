@@ -30,17 +30,17 @@ public class MainScreen
 
     private void onBtnTonesClicked() {
         Intent myIntent = new Intent(MainScreen.this, TonesRecognition.class);
-        MainScreen.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 
     private void onBtnEqualizationClicked() {
         Intent myIntent = new Intent(MainScreen.this, EqualizationRecognition.class);
-        MainScreen.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 
     private void onBtnResultsClicked() {
         Intent myIntent = new Intent(MainScreen.this, ViewResults.class);
-        MainScreen.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 
     @Override

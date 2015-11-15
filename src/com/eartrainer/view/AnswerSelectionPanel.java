@@ -7,7 +7,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import com.eartrainer.core.Answer;
+import com.eartrainer.core.QAType;
 
 public abstract class AnswerSelectionPanel extends TableLayout {
 
@@ -43,7 +43,7 @@ public abstract class AnswerSelectionPanel extends TableLayout {
         return buttonSelectionGrid.getSelectedItem();
     }
 
-    public abstract Answer getSelectedAnswer();
+    public abstract QAType getSelectedAnswer();
 
     private void createAndAddRadioGroup(String[] radioButtonsContent) {
         Context context = getContext();

@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import android.widget.LinearLayout;
 import com.eartrainer.core.RecognitionSettings;
-import com.eartrainer.core.Question;
-import com.eartrainer.core.TonesAnswer;
+import com.eartrainer.core.AudioQuestion;
+import com.eartrainer.core.TonesQAType;
 import com.eartrainer.utils.ArrayRandomizer;
 import com.eartrainer.R;
 import com.eartrainer.view.RecognitionView;
@@ -42,10 +42,10 @@ public class TonesRecognition extends BaseRecognitionActivity {
     }
 
     @Override
-    protected Question createRandomQuestion() {
+    protected AudioQuestion createRandomQuestion() {
         int frequency = frequencyRandomizer.randomize();
         ToneType type = toneTypeRandomizer.randomize();
-        return new Question(createOsc(type, frequency), new TonesAnswer(type, frequency));
+        return new AudioQuestion(createOsc(type, frequency), new TonesQAType(type, frequency));
     }
 
     private void initializeControls() {

@@ -1,10 +1,10 @@
 package com.eartrainer.view;
 
 import android.content.Context;
+import com.eartrainer.core.TonesQAType;
 import com.eartrainer.core.TonesRecognitionSettings;
 import com.eartrainer.activity.ToneType;
-import com.eartrainer.core.Answer;
-import com.eartrainer.core.TonesAnswer;
+import com.eartrainer.core.QAType;
 import com.eartrainer.utils.Utils;
 
 
@@ -15,16 +15,14 @@ public class TonesAnswerPanel extends AnswerSelectionPanel {
     }
 
     @Override
-    public Answer getSelectedAnswer() {
+    public QAType getSelectedAnswer() {
         String selectedToneStr = getSelectedRadioButtonContent();
         String selectedFrequencyStr = getSelectedGridButtonContent();
         if (selectedToneStr != null && selectedFrequencyStr != null) {
             ToneType toneType = ToneType.valueOf(selectedToneStr);
             Integer frequency = Integer.parseInt(selectedFrequencyStr);
-            return new TonesAnswer(toneType, frequency);
+            return new TonesQAType(toneType, frequency);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }

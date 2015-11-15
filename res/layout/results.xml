@@ -4,4 +4,58 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="RESULTS"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+    <Space
+            android:layout_width="20px"
+            android:layout_height="50px"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TONES"
+            android:id="@+id/textView2"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0/0"
+            android:id="@+id/text_tones_results"
+            android:textSize="80dp"
+            android:layout_gravity="center_horizontal"/>
+
+    <Space
+            android:layout_width="20px"
+            android:layout_height="50px"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="EQ"
+            android:id="@+id/textView4"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0/0"
+            android:id="@+id/text_eq_results"
+            android:textSize="80dp"
+            android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

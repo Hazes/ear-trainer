@@ -9,12 +9,12 @@ import com.eartrainer.R;
 import com.eartrainer.audio.unit.filter.PeakFilter;
 import com.eartrainer.audio.unit.source.AudioRawFileSource;
 import com.eartrainer.audio.unit.source.AudioSource;
-import com.eartrainer.core.EQAnswer;
+import com.eartrainer.core.EqualizationQAType;
 import com.eartrainer.core.EQRecognitionSettings;
 import com.eartrainer.core.RecognitionSettings;
-import com.eartrainer.core.Question;
+import com.eartrainer.core.AudioQuestion;
 import com.eartrainer.utils.ArrayRandomizer;
-import com.eartrainer.view.EQAnswerPanel;
+import com.eartrainer.view.EqualizationAnswerPanel;
 import com.eartrainer.view.RecognitionView;
 
 import java.util.HashMap;
@@ -53,19 +53,19 @@ public class EqualizationRecognition extends BaseRecognitionActivity {
     }
 
     @Override
-    protected Question createRandomQuestion() {
+    protected AudioQuestion createRandomQuestion() {
         int frequency = frequencyRandomizer.randomize();
         int gain = gainRandomizer.randomize();
         audioPlayer.setAudioFilter(new PeakFilter(audioPlayer.getSampleRate(), frequency, gain));
         AudioSource audioSource = new AudioRawFileSource(getApplicationContext(), trackNameToId.get(spinnerTracks.getSelectedItem().toString()));
-        return new Question(audioSource, new EQAnswer(frequency, gain));
+        return new AudioQuestion(audioSource, new EqualizationQAType(frequency, gain));
     }
 
     private void initializeControls() {
         spinnerSetup();
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.layout_root_equalization);
-        EQAnswerPanel tonesAnswerPanel = new EQAnswerPanel(rootLayout.getContext(), eqSettings);
+        EqualizationAnswerPanel tonesAnswerPanel = new EqualizationAnswerPanel(rootLayout.getContext(), eqSettings);
         RecognitionView recognitionView = new RecognitionView(rootLayout.getContext(), "Next random equalization", tonesAnswerPanel);
         rootLayout.addView(recognitionView);
         setRecognitionView(recognitionView);

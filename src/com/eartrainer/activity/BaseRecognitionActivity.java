@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
-import com.eartrainer.core.RecognitionSettings;
+import com.eartrainer.core.*;
 import com.eartrainer.audio.AudioPlayer;
 import com.eartrainer.controller.RecognitionViewController;
-import com.eartrainer.core.Answer;
-import com.eartrainer.core.Question;
-import com.eartrainer.core.RecognitionState;
+import com.eartrainer.session.Session;
 import com.eartrainer.view.RecognitionView;
 
 public abstract class BaseRecognitionActivity extends Activity {
@@ -20,7 +18,7 @@ public abstract class BaseRecognitionActivity extends Activity {
     protected AudioPlayer audioPlayer;
     private RecognitionView recognitionView;
     private RecognitionViewController viewController;
-    private Question currentQuestion;
+    private AudioQuestion currentQuestion;
     private CountDownTimer timer;
 
     @Override
@@ -41,7 +39,7 @@ public abstract class BaseRecognitionActivity extends Activity {
 
     protected abstract RecognitionSettings getRecognitionSettings();
 
-    protected abstract Question createRandomQuestion();
+    protected abstract AudioQuestion createRandomQuestion();
 
     protected void setRecognitionView(RecognitionView recognitionView) {
         this.recognitionView = recognitionView;
@@ -113,11 +111,14 @@ public abstract class BaseRecognitionActivity extends Activity {
     }
 
     private void evaluateAnswer() {
-        Answer answer = recognitionView.getAnswerPanel().getSelectedAnswer();
+        QAType answer = recognitionView.getAnswerPanel().getSelectedAnswer();
+        QAType question = currentQuestion.getQuestion();
+        Session.getInstance().getQAHistory().add(new QAPair(question, answer));
+
         TextView textViewCorrect = recognitionView.getTextViewCorrect();
-        if (answer == null || !answer.equals(currentQuestion.getAnswer())) {
+        if (answer == null || !answer.equals(question)) {
             textViewCorrect.setTextColor(Color.RED);
-            textViewCorrect.setText("Incorrect :( " + currentQuestion.getAnswer().asString());
+            textViewCorrect.setText("Incorrect :( " + currentQuestion.getQuestion().asString());
         } else {
             textViewCorrect.setTextColor(Color.GREEN);
             textViewCorrect.setText("Correct :)");
