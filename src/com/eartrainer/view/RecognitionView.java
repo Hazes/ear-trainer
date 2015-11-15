@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Space;
 
 public class RecognitionView extends LinearLayout {
 
@@ -29,6 +30,9 @@ public class RecognitionView extends LinearLayout {
         int style = android.R.style.Widget_ProgressBar_Horizontal;
         progressBar = new ProgressBar(new ContextThemeWrapper(context, style), null, style);
         addView(progressBar);
+
+        // add some space between "progress" bar and answer panel
+        addView(new Space(context), new LayoutParams(30, 30));
 
         this.answerPanel = answerPanel;
         addView(answerPanel);
