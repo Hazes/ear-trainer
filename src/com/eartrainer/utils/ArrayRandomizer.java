@@ -1,4 +1,4 @@
-package com.eartrainer;
+package com.eartrainer.utils;
 
 import java.util.Random;
 

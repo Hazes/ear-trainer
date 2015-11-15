@@ -1,18 +1,40 @@
 package com.eartrainer;
 
 
+import com.eartrainer.activity.ToneType;
+
 public class TonesRecognitionSettings {
-    private long tonePlayLength;
+    private long playLength;
+    private ToneType[] toneTypes;
+    private Integer[] frequencies;
 
-    public TonesRecognitionSettings(long tonePlayLength) {
-        this.tonePlayLength = tonePlayLength;
+    public TonesRecognitionSettings(long playLength, ToneType[] toneTypes, Integer[] frequencies) {
+        this.playLength = playLength;
+        this.toneTypes = toneTypes;
+        this.frequencies = frequencies;
     }
 
-    public long getTonePlayLength() {
-        return tonePlayLength;
+    public long getPlayLength() {
+        return playLength;
     }
 
-    public void setTonePlayLength(long tonePlayLength) {
-        this.tonePlayLength = tonePlayLength;
+    public void setPlayLength(long playLength) {
+        this.playLength = playLength;
+    }
+
+    public ToneType[] getToneTypes() {
+        return toneTypes;
+    }
+
+    public void setToneTypes(ToneType[] toneTypes) {
+        this.toneTypes = toneTypes;
+    }
+
+    public Integer[] getFrequencies() {
+        return frequencies;
+    }
+
+    public void setFrequencies(Integer[] frequencies) {
+        this.frequencies = frequencies;
     }
 }
