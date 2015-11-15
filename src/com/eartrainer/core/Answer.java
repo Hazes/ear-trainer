@@ -12,6 +12,10 @@ public abstract class Answer {
         return frequency.toString() + "Hz";
     }
 
+    public boolean equals(Answer other) {
+        return asString().equals(other.asString());
+    }
+
     public Integer getFrequency() {
         return frequency;
     }

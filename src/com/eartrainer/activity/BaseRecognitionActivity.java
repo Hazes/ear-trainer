@@ -115,7 +115,7 @@ public abstract class BaseRecognitionActivity extends Activity {
     private void evaluateAnswer() {
         Answer answer = recognitionView.getAnswerPanel().getSelectedAnswer();
         TextView textViewCorrect = recognitionView.getTextViewCorrect();
-        if (answer != currentQuestion.getAnswer() || answer == null) {
+        if (answer == null || !answer.equals(currentQuestion.getAnswer())) {
             textViewCorrect.setTextColor(Color.RED);
             textViewCorrect.setText("Incorrect :( " + currentQuestion.getAnswer().asString());
         } else {
