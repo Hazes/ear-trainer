@@ -4,6 +4,8 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import java.util.Arrays;
+
+import com.eartrainer.audio.unit.filter.AudioFilter;
 import com.eartrainer.audio.unit.source.AudioSource;
 
 public class AudioPlayer {
@@ -11,12 +13,13 @@ public class AudioPlayer {
     private boolean stopFlag;
     private AudioTrack audioTrack;
     private AudioSource audioSource;
+    private AudioFilter audioFilter;
     private int numSamples;
     private int sampleRate;
 
     public AudioPlayer(AudioSource audioSource, int sampleRate) {
         this.audioSource = audioSource;
-        this.sampleRate = sampleRate;
+        this.setSampleRate(sampleRate);
         AudioFormat format = new AudioFormat.Builder()
                 .setSampleRate(sampleRate)
                 .setEncoding(AudioFormat.ENCODING_PCM_FLOAT)
@@ -38,6 +41,10 @@ public class AudioPlayer {
         this.audioSource = audioSource;
     }
 
+    public void setAudioFilter(AudioFilter audioFilter) {
+        this.audioFilter = audioFilter;
+    }
+
     public void start() {
         Runnable audioPlayerRunnable = new Runnable() {
             @Override
@@ -47,14 +54,17 @@ public class AudioPlayer {
 
                 if (audioSource != null) {
                     float[] buffer = new float[numSamples];
-                    audioSource.prepare(sampleRate, numSamples);
+                    audioSource.prepare(getSampleRate(), numSamples);
                     audioTrack.play();
                     while (!stopFlag) {
                         audioSource.generate(buffer);
+                        if (audioFilter != null)
+                            audioFilter.process(buffer);
                         audioTrack.write(buffer, 0, buffer.length, AudioTrack.WRITE_BLOCKING);
                         Arrays.fill(buffer, 0);
                     }
                     audioTrack.stop();
+                    audioSource.release();
                 }
             }
         };
@@ -64,5 +74,13 @@ public class AudioPlayer {
 
     public void stop() {
         stopFlag = true;
+    }
+
+    public int getSampleRate() {
+        return sampleRate;
+    }
+
+    public void setSampleRate(int sampleRate) {
+        this.sampleRate = sampleRate;
     }
 }

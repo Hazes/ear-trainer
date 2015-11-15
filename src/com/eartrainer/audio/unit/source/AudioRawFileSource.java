@@ -9,14 +9,14 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 
-public class AudioFileSource implements AudioSource {
+public class AudioRawFileSource implements AudioSource {
 
     private InputStream inStream;
     private BufferedInputStream bufferedInStream;
     private byte[] buffer;
     private ByteBuffer byteBuffer;
 
-    public AudioFileSource(Context context, int resourceId) {
+    public AudioRawFileSource(Context context, int resourceId) {
         inStream = context.getResources().openRawResource(resourceId);
     }
 

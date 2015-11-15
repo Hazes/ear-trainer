@@ -11,11 +11,21 @@ public class PeakFilter
     private float gain;
     private float bandwidth;
 
+    public PeakFilter(float sampleRate, float centerFrequency, float gain) {
+        this(sampleRate, centerFrequency, gain, 1.f);
+    }
+
+    public PeakFilter(float sampleRate, float centerFrequency, float gain, float bandwidthOctaves) {
+        this.centerFrequency = centerFrequency;
+        this.gain = gain;
+        this.bandwidth = bandwidthOctaves;
+        biQuad = new BiQuadFilter(sampleRate);
+        biQuad.setupPeaking(centerFrequency, gain, bandwidth);
+    }
+
     @Override
     public void process(float[] buffer) {
-        for (int i = 0; i < buffer.length; ++i) {
-            buffer[i] = biQuad.process(i);
-        }
+        biQuad.process(buffer);
     }
 
     @Override
@@ -32,30 +42,11 @@ public class PeakFilter
         return centerFrequency;
     }
 
-    public void setCenterFrequency(float centerFrequency) {
-        this.centerFrequency = centerFrequency;
-        updateFilter();
-    }
-
     public float getGain() {
         return gain;
     }
 
-    public void setGain(float gain) {
-        this.gain = gain;
-        updateFilter();
-    }
-
     public float getBandwidth() {
         return bandwidth;
-    }
-
-    public void setBandwidth(float bandwidth) {
-        this.bandwidth = bandwidth;
-        updateFilter();
-    }
-
-    private void updateFilter() {
-        biQuad.setupPeaking(getCenterFrequency(), getGain(), getBandwidth());
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import com.eartrainer.utils.Utils;
 
 /**
  *
@@ -30,6 +31,16 @@ public class ButtonSelectionGrid
 
         setStretchAllColumns(true);
         createButtonsGrid(context, contents);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for (int i = 0; i < getChildCount(); ++i) {
+            TableRow tableRow = (TableRow)getChildAt(i);
+            for (int j = 0; j < tableRow.getChildCount(); ++j)
+                tableRow.getChildAt(j).setEnabled(enabled);
+        }
     }
 
     private void createButtonsGrid(Context context, String[] contents) {
@@ -62,7 +73,8 @@ public class ButtonSelectionGrid
         if (buttonClicked != null)
             buttonClicked.getBackground().clearColorFilter();
         buttonClicked = (Button)v;
-        buttonClicked.getBackground().setColorFilter(new PorterDuffColorFilter(getSelectionColor(), PorterDuff.Mode.MULTIPLY));
+        int darkenedSelectionColor = Utils.setAlpha(selectionColor, 128);
+        buttonClicked.getBackground().setColorFilter(new PorterDuffColorFilter(darkenedSelectionColor, PorterDuff.Mode.MULTIPLY));
     }
 
     public int getSelectionColor() {

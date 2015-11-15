@@ -3,14 +3,13 @@ package com.eartrainer.view;
 
 import android.content.Context;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.eartrainer.R;
 
-public class RecognitionTrainingView extends LinearLayout {
+public class RecognitionView extends LinearLayout {
 
     private Button buttonNext;
     private Button buttonAnswer;
@@ -18,7 +17,7 @@ public class RecognitionTrainingView extends LinearLayout {
     private AnswerSelectionPanel answerPanel;
     private TextView textViewCorrect;
 
-    public RecognitionTrainingView(Context context, String nextButtonText, AnswerSelectionPanel answerPanel) {
+    public RecognitionView(Context context, String nextButtonText, AnswerSelectionPanel answerPanel) {
         super(context);
 
         setOrientation(LinearLayout.VERTICAL);
@@ -39,6 +38,7 @@ public class RecognitionTrainingView extends LinearLayout {
         addView(buttonAnswer);
 
         textViewCorrect = new TextView(context);
+        textViewCorrect.setGravity(Gravity.CENTER_HORIZONTAL);
         addView(textViewCorrect);
     }
 

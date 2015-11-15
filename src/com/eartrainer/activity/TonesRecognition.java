@@ -1,66 +1,62 @@
 package com.eartrainer.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.Button;
 
-import android.widget.ProgressBar;
-import com.eartrainer.ArrayRandomizer;
+import android.widget.LinearLayout;
+import com.eartrainer.core.RecognitionSettings;
+import com.eartrainer.core.Question;
+import com.eartrainer.core.TonesAnswer;
+import com.eartrainer.utils.ArrayRandomizer;
 import com.eartrainer.R;
-import com.eartrainer.TonesRecognitionConsts;
-import com.eartrainer.TonesRecognitionSettings;
-import com.eartrainer.audio.AudioPlayer;
+import com.eartrainer.view.RecognitionView;
+import com.eartrainer.view.TonesAnswerPanel;
+import com.eartrainer.core.TonesRecognitionSettings;
 import com.eartrainer.audio.unit.source.osc.*;
-import junit.framework.Assert;
 
 
-enum ToneType {
-    SINE, TRIANGLE, SQUARE, SAW
-}
-
-public class TonesRecognition
-        extends Activity
-        implements View.OnClickListener {
-
-    private Button btnNext;
-    private Button btnAnswer;
-    private ProgressBar progressBarCountdown;
+public class TonesRecognition extends BaseRecognitionActivity {
 
     private TonesRecognitionSettings tonesSettings;
     private ArrayRandomizer<ToneType> toneTypeRandomizer;
     private ArrayRandomizer<Integer> frequencyRandomizer;
-    private AudioPlayer audioPlayer;
-    private Thread audioPlayerThread;
-    private CountDownTimer timer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tones);
 
-        audioPlayer = new AudioPlayer(null, 44100);
-        tonesSettings = new TonesRecognitionSettings(4000);
+        Integer[] frequencies = new Integer[]{63, 125, 250, 500, 1000, 2000, 4000};
+        tonesSettings = new TonesRecognitionSettings(4000, ToneType.values(), frequencies);
         toneTypeRandomizer = new ArrayRandomizer<>(ToneType.values());
-        frequencyRandomizer = new ArrayRandomizer<>(TonesRecognitionConsts.frequencies);
-        InitializeControls();
+        frequencyRandomizer = new ArrayRandomizer<>(tonesSettings.getFrequencies());
+        initializeControls();
     }
 
-    private void InitializeControls() {
-        btnNext = (Button)findViewById(R.id.btn_next_TonesRecognition);
-        btnNext.setOnClickListener(this);
-        btnAnswer = (Button)findViewById(R.id.btn_answer_TonesRecognition);
-        btnAnswer.setOnClickListener(this);
-        btnAnswer.setEnabled(false);
-
-        progressBarCountdown = (ProgressBar)findViewById(R.id.progressbar_TonesRecognition);
-        progressBarCountdown.setMax((int)tonesSettings.getTonePlayLength() / 1000);
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.tones;
     }
 
-    private Osc createRandomOsc() {
+    @Override
+    protected RecognitionSettings getRecognitionSettings() {
+        return tonesSettings;
+    }
+
+    @Override
+    protected Question createRandomQuestion() {
         int frequency = frequencyRandomizer.randomize();
         ToneType type = toneTypeRandomizer.randomize();
+        return new Question(createOsc(type, frequency), new TonesAnswer(type, frequency));
+    }
+
+    private void initializeControls() {
+        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.layout_root_tones);
+        TonesAnswerPanel tonesAnswerPanel = new TonesAnswerPanel(rootLayout.getContext(), tonesSettings);
+        RecognitionView recognitionView = new RecognitionView(rootLayout.getContext(), "Next random tone", tonesAnswerPanel);
+        rootLayout.addView(recognitionView);
+        setRecognitionView(recognitionView);
+    }
+
+    private Osc createOsc(ToneType type, Integer frequency) {
         switch (type) {
             case SINE:
                 return new SineOsc(frequency);
@@ -72,62 +68,6 @@ public class TonesRecognition
                 return new SawOsc(frequency);
             default:
                 throw new AssertionError("Unknown osc type");
-        }
-    }
-
-    private void onBtnNextClicked() {
-        btnNext.setEnabled(false);
-        btnAnswer.setEnabled(true);
-
-        playRandomTone();
-    }
-
-    private void playRandomTone() {
-        long playLengthMs = tonesSettings.getTonePlayLength();
-        long intervalMs = 1000;
-
-        audioPlayer.setAudioSource(createRandomOsc());
-        audioPlayerThread = new Thread(audioPlayer, "AudioPlayer Thread");
-        audioPlayerThread.start();
-        timer = new CountDownTimer(playLengthMs, intervalMs - 100) {
-            private int tick = 0;
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                progressBarCountdown.setProgress(tick++);
-            }
-
-            @Override
-            public void onFinish() {
-                onPlayFinished();
-            }
-        }.start();
-    }
-
-    private void onPlayFinished() {
-        audioPlayer.stop();
-        progressBarCountdown.setProgress(0);
-    }
-
-    private void onBtnAnswerClicked() {
-        btnNext.setEnabled(true);
-        btnAnswer.setEnabled(false);
-
-        if (audioPlayerThread.isAlive()) {
-            timer.cancel();
-            onPlayFinished();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_next_TonesRecognition:
-                onBtnNextClicked();
-                break;
-            case R.id.btn_answer_TonesRecognition:
-                onBtnAnswerClicked();
-                break;
         }
     }
 }

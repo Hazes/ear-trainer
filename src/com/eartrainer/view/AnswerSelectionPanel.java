@@ -9,16 +9,24 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import com.eartrainer.core.Answer;
 
-public abstract class AnswerSelectionPanel<E extends Enum<E>> extends TableLayout {
+public abstract class AnswerSelectionPanel extends TableLayout {
 
     private RadioGroup radioGroup;
     private ButtonSelectionGrid buttonSelectionGrid;
 
-    public AnswerSelectionPanel(Context context, E[] radioButtonsContent, String[] buttonsGridContent) {
+    public AnswerSelectionPanel(Context context, String[] radioButtonsContent, String[] buttonsGridContent) {
         super(context);
 
         createAndAddRadioGroup(radioButtonsContent);
         createAndAddButtonsGrid(buttonsGridContent);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for (int i = 0; i < radioGroup.getChildCount(); ++i)
+            radioGroup.getChildAt(i).setEnabled(enabled);
+        buttonSelectionGrid.setEnabled(enabled);
     }
 
     public String getSelectedRadioButtonContent() {
@@ -37,19 +45,19 @@ public abstract class AnswerSelectionPanel<E extends Enum<E>> extends TableLayou
 
     public abstract Answer getSelectedAnswer();
 
-    private void createAndAddRadioGroup(E[] radioButtonsContent) {
+    private void createAndAddRadioGroup(String[] radioButtonsContent) {
         Context context = getContext();
         radioGroup = new RadioGroup(context);
         radioGroup.setOrientation(TableLayout.HORIZONTAL);
-        radioGroup.setGravity(Gravity.CENTER_HORIZONTAL);
-        for (E content : radioButtonsContent) {
+        for (String content : radioButtonsContent) {
             RadioButton radioBtn = new RadioButton(context);
-            radioBtn.setText(content.toString());
+            radioBtn.setText(content);
             radioGroup.addView(radioBtn);
         }
 
         TableRow tableRow = new TableRow(context);
         tableRow.addView(radioGroup);
+        tableRow.setGravity(Gravity.CENTER);
         addView(tableRow);
     }
 
