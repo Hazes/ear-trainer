@@ -18,8 +18,6 @@ import com.eartrainer.R;
  */
 public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
 
-    private Intent launchMainIntent;
-
     public MainScreenTest() {
         super(MainScreen.class);
     }
@@ -27,7 +25,7 @@ public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        launchMainIntent = new Intent(getInstrumentation().getTargetContext(), MainScreen.class);
+        Intent launchMainIntent = new Intent(getInstrumentation().getTargetContext(), MainScreen.class);
         startActivity(launchMainIntent, null, null);
     }
 

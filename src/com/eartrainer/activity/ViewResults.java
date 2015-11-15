@@ -33,7 +33,7 @@ public class ViewResults extends Activity {
         int numTotal = 0;
         int numCorrect = 0;
         for (QAPair qaPair : qaHistory) {
-            if (qaPair.getQuestion() instanceof TonesQAType) {
+            if (qaPair != null && qaPair.getQuestion() instanceof TonesQAType) {
                 numTotal++;
                 if (qaPair.isAnswerCorrect())
                     numCorrect++;
@@ -48,7 +48,7 @@ public class ViewResults extends Activity {
         int numTotal = 0;
         int numCorrect = 0;
         for (QAPair qaPair : qaHistory) {
-            if (qaPair.getQuestion() instanceof EqualizationQAType) {
+            if (qaPair != null && qaPair.getQuestion() instanceof EqualizationQAType) {
                 numTotal++;
                 if (qaPair.isAnswerCorrect())
                     numCorrect++;

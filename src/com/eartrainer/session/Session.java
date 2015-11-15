@@ -6,7 +6,7 @@ import com.eartrainer.core.QAPair;
 import java.util.ArrayList;
 
 /**
- *
+ * TODO: Replace this with Application subclass
  */
 public class Session {
 

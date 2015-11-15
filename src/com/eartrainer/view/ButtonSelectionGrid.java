@@ -43,6 +43,18 @@ public class ButtonSelectionGrid
         }
     }
 
+    public Button getButtonAt(int index) {
+        int currentIndex = 0;
+        for (int i = 0; i < getChildCount(); ++i) {
+            TableRow tableRow = (TableRow)getChildAt(i);
+            for (int j = 0; j < tableRow.getChildCount(); ++j) {
+                if (currentIndex++ == index)
+                    return (Button)tableRow.getChildAt(j);
+            }
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
     private void createButtonsGrid(Context context, String[] contents) {
         // square grid
         int gridSize = (int)Math.ceil(Math.sqrt(contents.length));
