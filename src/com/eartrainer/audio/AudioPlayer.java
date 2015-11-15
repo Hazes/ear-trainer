@@ -6,9 +6,9 @@ import android.media.AudioTrack;
 import java.util.Arrays;
 import com.eartrainer.audio.unit.source.AudioSource;
 
-public class AudioPlayer implements Runnable {
+public class AudioPlayer {
 
-    private boolean stop;
+    private boolean stopFlag;
     private AudioTrack audioTrack;
     private AudioSource audioSource;
     private int numSamples;
@@ -38,25 +38,31 @@ public class AudioPlayer implements Runnable {
         this.audioSource = audioSource;
     }
 
-    @Override
-    public void run() {
-        stop = false;
-        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+    public void start() {
+        Runnable audioPlayerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                stopFlag = false;
+                Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 
-        if (audioSource != null) {
-            float[] buffer = new float[numSamples];
-            audioSource.prepare(sampleRate, numSamples);
-            audioTrack.play();
-            while (!stop) {
-                Arrays.fill(buffer, 0);
-                audioSource.generate(buffer);
-                audioTrack.write(buffer, 0, buffer.length, AudioTrack.WRITE_BLOCKING);
+                if (audioSource != null) {
+                    float[] buffer = new float[numSamples];
+                    audioSource.prepare(sampleRate, numSamples);
+                    audioTrack.play();
+                    while (!stopFlag) {
+                        audioSource.generate(buffer);
+                        audioTrack.write(buffer, 0, buffer.length, AudioTrack.WRITE_BLOCKING);
+                        Arrays.fill(buffer, 0);
+                    }
+                    audioTrack.stop();
+                }
             }
-            audioTrack.stop();
-        }
+        };
+        Thread audioThread = new Thread(audioPlayerRunnable, "AudioPlayer Thread");
+        audioThread.start();
     }
 
     public void stop() {
-        stop = true;
+        stopFlag = true;
     }
 }
