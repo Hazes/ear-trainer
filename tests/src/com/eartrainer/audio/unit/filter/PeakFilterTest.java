@@ -30,7 +30,7 @@ public class PeakFilterTest extends AndroidTestCase {
         for (int i = 0; i < buffer.length; i++) {
             err += Math.abs(buffer[i] - buffercopy[i]);
         }
-        assertTrue(err<0.000000000000000000000000000000000000000000001);
+        assertTrue(err<0.0000001);
     }
 }
 
