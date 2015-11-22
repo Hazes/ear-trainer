@@ -1,4 +1,4 @@
-package com.eartrainer.view.audio.unit.filter;
+package com.eartrainer.audio.unit.filter;
 
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
@@ -23,14 +23,14 @@ public class PeakFilterTest extends AndroidTestCase {
         for (int i = 0; i < buffer.length; i++) {
             buffer[i] = rand.nextFloat();
         }
-        System.arraycopy(buffer,0,buffercopy,0,buffer.length );
+        System.arraycopy(buffer ,0,buffercopy,0,buffer.length );
         PeakFilter peak  = new PeakFilter(44100, 100, gain);
         peak.process(buffer);
 
         for (int i = 0; i < buffer.length; i++) {
             err += Math.abs(buffer[i] - buffercopy[i]);
         }
-        assertTrue(err<0.0001);
+        assertTrue(err<0.000000000000000000000000000000000000000000001);
     }
 }
 
